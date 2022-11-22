@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   def index
-    @users = User.ApplicationController
+    @users = User.all
   end
 
   def new
@@ -12,10 +12,15 @@ class UsersController < ApplicationController
     User.create(user_params)
   end
 
-def edit
-  @user = User.find(aparams[:id])
-end
+  def edit
+    @user = User.find(params[:id])
+  end
 
+  # 以下のアクションを追加
+  def update
+    user = User.find(params[:id])
+    user.update(user_params)
+  end
 
   def destroy
     user = User.find(params[:id])
@@ -24,7 +29,6 @@ end
 
   private
   def user_params
-    params.require(:user).premit(:name, :age)
+    params.require(:user).permit(:name, :age)
   end
-
 end
